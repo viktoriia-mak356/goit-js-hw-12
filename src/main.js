@@ -51,9 +51,9 @@ form.addEventListener('submit', async (e) => {
 
 loadMoreBtn.addEventListener('click', async () => {
   currentPage++;
-  
-  showLoader();            
-  hideLoadMoreButton();   
+        
+  hideLoadMoreButton();
+  showLoader(); 
 
   try {
     const data = await getImagesByQuery(currentQuery, currentPage);
