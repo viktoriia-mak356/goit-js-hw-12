@@ -22,7 +22,10 @@ let loadedImages = 0;
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   currentQuery = input.value.trim();
-  if (!currentQuery) return;
+  if (!currentQuery) {
+  iziToast.warning({ message: 'Please enter a search query!' });
+  return;
+}
 
   currentPage = 1;
   loadedImages = 0;
@@ -35,13 +38,22 @@ form.addEventListener('submit', async (e) => {
     totalHits = data.totalHits;
     loadedImages += data.hits.length;
 
-    if (data.hits.length === 0) {
-      iziToast.info({ message: 'Sorry, no images found.' });
-      return;
-    }
+  if (data.hits.length === 0) {
+    iziToast.info({ message: 'Sorry, no images found.' });
+    hideLoader();
+    return;
+  }
+
 
     createGallery(data.hits);
-    if (loadedImages < totalHits) showLoadMoreButton();
+    if (loadedImages < totalHits) {
+  showLoadMoreButton();
+  } else {
+  iziToast.info({
+    message: "We're sorry, but you've reached the end of search results.",
+  });
+  }
+
   } catch (error) {
     iziToast.error({ message: 'Something went wrong.' });
   } finally {
