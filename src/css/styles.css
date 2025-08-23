@@ -85,6 +85,22 @@ button:hover {
   display: none;
 }
 
+.loader-text {
+  position: fixed;
+  top: calc(50% + 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+}
+
+.loader-text.hidden {
+  display: none;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
