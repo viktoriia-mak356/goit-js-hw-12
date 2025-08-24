@@ -13,14 +13,6 @@ import 'izitoast/dist/css/iziToast.min.css';
 const form = document.querySelector('.form');
 const input = document.querySelector('input[name="searchQuery"]');
 const loadMoreBtn = document.querySelector('.load-more');
-const loaderText = document.querySelector('.loader-text');
-
-function showLoaderText() {
-  loaderText?.classList.remove('hidden');
-}
-function hideLoaderText() {
-  loaderText?.classList.add('hidden');
-}
 
 let currentPage = 1;
 let currentQuery = '';
@@ -40,7 +32,6 @@ form.addEventListener('submit', async (e) => {
   clearGallery();
   hideLoadMoreButton();
   showLoader();
-  showLoaderText(); 
 
   try {
     const data = await getImagesByQuery(currentQuery, currentPage);
@@ -69,7 +60,6 @@ form.addEventListener('submit', async (e) => {
     iziToast.error({ message: 'Something went wrong.' });
   } finally {
     hideLoader();
-    hideLoaderText();
   }
 });
 
@@ -77,7 +67,6 @@ loadMoreBtn.addEventListener('click', async () => {
        
   hideLoadMoreButton();
   showLoader(); 
-  showLoaderText();
   loadMoreBtn.disabled = true;
 
   try {
@@ -103,10 +92,8 @@ loadMoreBtn.addEventListener('click', async () => {
     clearGallery();
     hideLoadMoreButton();
     iziToast.error({ message: 'Failed to load more images.' });
-    
   } finally {
     hideLoader(); 
-    hideLoaderText();
     loadMoreBtn.disabled = false;
   }
 });
